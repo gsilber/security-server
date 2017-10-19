@@ -1,4 +1,6 @@
-const config = require('../config/main');
+const   jwt = require('jsonwebtoken'),
+        crypto = require('crypto'),
+        config = require('../config/main');
 
 //========================================
 // Login Route
