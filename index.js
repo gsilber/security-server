@@ -4,7 +4,11 @@ app = express(),
 bodyParser = require('body-parser'),
 logger = require('morgan'),
 config = require('./config/main'),
+mongoose = require('mongoose'),
 router = require('./router');
+
+mongoose.Promise=global.Promise
+mongoose.connect(config.database,{useMongoClient: true});
 
 // Start the server
 const server = app.listen(config.port);  
