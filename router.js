@@ -1,10 +1,16 @@
 const AuthenticationController = require('./controllers/authentication'),  
-      express = require('express');
+      express = require('express'),
+      passportService = require('./config/passport'),
+      passport = require('passport');
+
 const REQUIRE_ADMIN = "Admin",  
       REQUIRE_OWNER = "Owner",
       REQUIRE_CLIENT = "Client",
       REQUIRE_MEMBER = "Member";
 
+const requireAuth = passport.authenticate('jwt', { session: false });       
+const requireLogin = passport.authenticate('local', { session: false });  
+      
 module.exports = function(app) {  
     // Initializing route groups
     const apiRoutes = express.Router(),
@@ -21,7 +27,7 @@ module.exports = function(app) {
     authRoutes.post('/register', AuthenticationController.register);
     
     // Login route
-    authRoutes.post('/login', /*requireLogin,*/ AuthenticationController.login);
+    authRoutes.post('/login', requireLogin, AuthenticationController.login);
     
     // Set url for API group routes
     app.use('/api', apiRoutes);

@@ -1,6 +1,7 @@
 // Importing Node modules and initializing Express
 const express = require('express'),  
 app = express(),
+bodyParser = require('body-parser'),
 logger = require('morgan'),
 config = require('./config/main'),
 router = require('./router');
@@ -11,6 +12,9 @@ console.log('Your server is running on port ' + config.port + '.');
 
 // Setting up basic middleware for all Express requests
 app.use(logger('dev')); // Log requests to API using morgan
+
+app.use(bodyParser.urlencoded({ extended: false }));  
+app.use(bodyParser.json());  
 
 // Enable CORS from client-side
 app.use(function(req, res, next) {  
