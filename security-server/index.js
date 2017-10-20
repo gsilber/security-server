@@ -3,7 +3,7 @@ const express = require('express'),
 app = express(),
 bodyParser = require('body-parser'),
 logger = require('morgan'),
-config = require('./config/main'),
+config = require('./config/config'),
 mongoose = require('mongoose'),
 router = require('./router');
 

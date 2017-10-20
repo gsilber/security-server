@@ -4,8 +4,9 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "node2",
+            "name": "Debug security server",
             "protocol": "legacy",
+            "cwd": "${workspaceFolder}/security-server",
             "runtimeExecutable": "npm",
             "runtimeArgs": [
                 "run-script",
