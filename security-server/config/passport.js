@@ -44,3 +44,6 @@ const jwtLogin = new JwtStrategy(jwtOptions, function (payload, done) {
 
 passport.use(jwtLogin);
 passport.use(localLogin);
+
+exports.requireAuth = passport.authenticate('jwt', { session: false });       
+exports.requireLogin = passport.authenticate('local', { session: false });  
