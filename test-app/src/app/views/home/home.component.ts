@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 loggedIn = false;
 constructor(private _userSvc: UserService) {
-  _userSvc.status.subscribe(data => this.loggedIn = data)
+  _userSvc.status.subscribe(data => this.loggedIn = data);
 }
 
   ngOnInit() {

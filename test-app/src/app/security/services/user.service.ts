@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {LocalStorageService} from 'angular-2-local-storage';
-import {ReplaySubject} from 'rxjs/rx'
+import {ReplaySubject} from 'rxjs/ReplaySubject';
+
 @Injectable()
 export class UserService {
   status: ReplaySubject<boolean> = new ReplaySubject<boolean>();

@@ -14,8 +14,8 @@ import { LoginComponent } from './ui/login/login.component';
     HttpModule,
     LocalStorageModule.withConfig({prefix: 'test-app', storageType: 'localStorage'})
   ],
-  providers:[SecurityService, UserService],
+  providers: [SecurityService, UserService],
   declarations: [LoginComponent],
-  exports:[LoginComponent]
+  exports: [LoginComponent]
 })
 export class SecurityModule { }
