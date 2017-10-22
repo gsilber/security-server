@@ -1,3 +1,4 @@
+import { UserService } from './../../security/services/user.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
+loggedIn = false;
+constructor(private _userSvc: UserService) {
+  _userSvc.status.subscribe(data => this.loggedIn = data)
+}
 
   ngOnInit() {
   }

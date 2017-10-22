@@ -1,5 +1,6 @@
 import { UserService } from './services/user.service';
 import { SecurityService } from './services/security.service';
+import { LocalStorageModule } from 'angular-2-local-storage';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {HttpModule} from '@angular/http';
@@ -10,7 +11,8 @@ import { LoginComponent } from './ui/login/login.component';
   imports: [
     CommonModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    LocalStorageModule.withConfig({prefix: 'test-app', storageType: 'localStorage'})
   ],
   providers:[SecurityService, UserService],
   declarations: [LoginComponent],

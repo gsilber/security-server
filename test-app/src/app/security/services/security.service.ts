@@ -18,4 +18,8 @@ export class SecurityService {
         });
   }
 
+  public logout(){
+    this._userSvc.removeUser();
+  }
+
 }
