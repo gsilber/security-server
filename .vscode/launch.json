@@ -2,6 +2,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Debug Test App",
+            "cwd": "${workspaceFolder}/test-app",
+            "url": "http://localhost:4200",
+            "webRoot": "${workspaceRoot}"
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "Debug test API",
