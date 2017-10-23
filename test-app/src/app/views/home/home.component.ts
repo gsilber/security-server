@@ -1,4 +1,3 @@
-import { UserService } from './../../security/services/user.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 loggedIn = false;
-constructor(private _userSvc: UserService) {
-  _userSvc.status.subscribe(data => this.loggedIn = data);
+constructor() {
 }
 
   ngOnInit() {

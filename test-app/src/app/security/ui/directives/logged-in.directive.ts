@@ -10,7 +10,6 @@ export class LoggedInDirective implements OnInit {
 
   constructor(private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef, private _userSvc: UserService) {
-      console.log(this.loggedIn);
    }
 
    ngOnInit() {
