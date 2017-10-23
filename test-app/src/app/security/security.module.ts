@@ -7,6 +7,9 @@ import {HttpModule} from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './ui/login/login.component';
 
+import { LoggedInDirective } from './ui/directives/logged-in.directive';
+import { InRoleDirective } from './ui/directives/in-role.directive';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,7 +18,7 @@ import { LoginComponent } from './ui/login/login.component';
     LocalStorageModule.withConfig({prefix: 'test-app', storageType: 'localStorage'})
   ],
   providers: [SecurityService, UserService],
-  declarations: [LoginComponent],
-  exports: [LoginComponent]
+  declarations: [LoginComponent, LoggedInDirective, InRoleDirective],
+  exports: [LoginComponent, LoggedInDirective, InRoleDirective]
 })
 export class SecurityModule { }

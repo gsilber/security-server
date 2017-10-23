@@ -9,10 +9,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
-  loggedIn = false;
-  constructor(private _secSvc: SecurityService, private _userSvc: UserService) {
-    _userSvc.status.subscribe(value => this.loggedIn = value);
-  }
+  constructor(private _secSvc: SecurityService) { }
 
   logout = () => this._secSvc.logout();
 }
