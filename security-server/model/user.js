@@ -17,6 +17,10 @@ const UserSchema = new Schema({
       firstName: { type: String },
       lastName: { type: String }
     },
+    provider: {
+      type: String,
+      required: true
+    },
     role: {
       type: String,
       enum: ['Member', 'Client', 'Owner', 'Admin'],

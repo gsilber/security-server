@@ -16,6 +16,7 @@ function setUserInfo(request) {
         lastName: request.profile.lastName,
         email: request.email,
         role: request.role,
+        provider: request.provider
     };
 }
 
@@ -63,29 +64,20 @@ exports.register = function (req, res, next) {
 
     User.findOne({ email: email }, function (err, existingUser) {
         if (err) { return next(err); }
-
         // If user is not unique, return error
         if (existingUser) {
             return res.status(422).send({ error: 'That email address is already in use.' });
         }
-
         // If email is unique and password was provided, create account
         let user = new User({
             email: email,
             password: password,
+            provider: 'local',
             profile: { firstName: firstName, lastName: lastName }
         });
-
         user.save(function (err, user) {
             if (err) { return next(err); }
-
-            // Subscribe member to Mailchimp list
-            // mailchimp.subscribeToNewsletter(user.email);
-
-            // Respond with JWT if user was created
-
             let userInfo = setUserInfo(user);
-
             res.status(201).json({
                 token: 'JWT ' + generateToken(userInfo),
                 user: userInfo

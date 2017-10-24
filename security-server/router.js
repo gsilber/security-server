@@ -1,7 +1,6 @@
 const AuthenticationController = require('./controllers/authentication'),  
       express = require('express'),
-      passportService = require('./config/passport'),
-      security = require('./security/security');
+      passportService = require('./config/passport');
      
 module.exports = function(app) {  
     // Initializing route groups
