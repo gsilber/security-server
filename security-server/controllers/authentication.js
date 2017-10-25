@@ -8,17 +8,6 @@ function generateToken(user) {
         expiresIn: 10080 // in seconds
     });
 }
-// Set user info from request
-function setUserInfo(request) {
-    return {
-        _id: request._id,
-        firstName: request.profile.firstName,
-        lastName: request.profile.lastName,
-        email: request.email,
-        role: request.role,
-        provider: request.provider
-    };
-}
 
 //========================================
 // Login Route
@@ -27,7 +16,13 @@ exports.login = function (req, res, next) {
     if (!req.user) {
         res.status(400).json({ error: "bad data" });
     } else {
-        let userInfo = setUserInfo(req.user);
+        let user = new User({
+            email: req.user.email,
+            password: req.user.password,
+            provider: req.user.provider,
+            profile: { firstName: req.user.firstName, lastName: req.user.lastName }
+        });
+        let userInfo = user.toJson();
 
         res.status(200).json({
             token: 'JWT ' + generateToken(userInfo),
@@ -36,7 +31,11 @@ exports.login = function (req, res, next) {
     }
 }
 
-
+exports.validate = function(req,res,next){
+    return res.status(200).json({
+        validated:true
+    })
+}
 //========================================
 // Registration Route
 //========================================
@@ -77,7 +76,7 @@ exports.register = function (req, res, next) {
         });
         user.save(function (err, user) {
             if (err) { return next(err); }
-            let userInfo = setUserInfo(user);
+            let userInfo = user.toJson();
             res.status(201).json({
                 token: 'JWT ' + generateToken(userInfo),
                 user: userInfo

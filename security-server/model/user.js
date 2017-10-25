@@ -30,7 +30,8 @@ const UserSchema = new Schema({
     resetPasswordExpires: { type: Date }
   },
   {
-    timestamps: true
+    timestamps: true,
+    collection: 'User'
   });
 
   // Pre-save of user to database, hash password if password is modified or new
@@ -59,5 +60,15 @@ UserSchema.pre('save', function(next) {
     });
   }
 
+  UserSchema.methods.toJson = function()  {
+    return {        
+      _id: this._id,
+      firstName: this.profile.firstName,
+      lastName: this.profile.lastName,
+      email: this.email,
+      role: this.role,
+      provider: this.provider
+    }
+  }
   module.exports = mongoose.model('User', UserSchema);  
   

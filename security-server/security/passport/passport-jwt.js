@@ -1,6 +1,7 @@
 const User = require('../../model/user'),
 JwtStrategy = require('passport-jwt').Strategy,
-ExtractJwt = require('passport-jwt').ExtractJwt;
+ExtractJwt = require('passport-jwt').ExtractJwt,
+mongoose = require('mongoose');
 
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -9,7 +10,8 @@ const jwtOptions = {
 
 // Setting up JWT login strategy
 exports.Login = new JwtStrategy(jwtOptions, function (payload, done) {
-    User.findById(payload._id, function(err, user) {
+  let id = new mongoose.Types.ObjectId(payload._id);
+    User.findById(id, function(err, user) {
         if (err) { return done(err, false); }
     
         if (user) {

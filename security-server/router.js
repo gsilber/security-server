@@ -11,5 +11,6 @@ module.exports = function(app) {
     authRoutes.post('/register', AuthenticationController.register);
     // /api/auth/login
     authRoutes.post('/login', passportService.requireLogin, AuthenticationController.login);
+    authRoutes.get('/validate',passportService.requireAuth,AuthenticationController.validate)
     app.use('/api', apiRoutes);
 };
