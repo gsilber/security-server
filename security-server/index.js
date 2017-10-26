@@ -6,7 +6,7 @@ logger = require('morgan'),
 config = require('./config/config'),
 mongoose = require('mongoose'),
 router = require('./router');
-
+passport = require('passport'),
 mongoose.set('debug', true);
 mongoose.Promise=global.Promise
 mongoose.connect(config.database,{useMongoClient: true});
@@ -14,7 +14,7 @@ mongoose.connect(config.database,{useMongoClient: true});
 // Start the server
 const server = app.listen(config.port);  
 console.log('Your server is running on port ' + config.port + '.');  
-
+app.use(passport.initialize());
 // Setting up basic middleware for all Express requests
 app.use(logger('dev')); // Log requests to API using morgan
 

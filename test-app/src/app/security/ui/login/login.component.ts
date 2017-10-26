@@ -23,4 +23,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  googleLogin = () =>{
+    alert('boo');
+  }
 }
