@@ -1,4 +1,5 @@
 const User = require('../../model/user'),
+config=require('../../config/config')
 JwtStrategy = require('passport-jwt').Strategy,
 ExtractJwt = require('passport-jwt').ExtractJwt,
 mongoose = require('mongoose');

@@ -13,26 +13,26 @@ function generateToken(user) {
 // Login Route
 //========================================
 exports.login = function (req, res, next) {
-    if (!req.user) {
-        res.status(400).json({ error: "bad data" });
-    } else if (!req.body.clientid) {
-        res.status(400).json({ error: "bad data" });
-    } else if (req.user.auths.clients.filter(function(item){return item===req.body.clientid;}).length===0){
-    res.status(400).json({ error: "client not authorized" });
-    } else {
-        let user = new User({
-            email: req.user.email,
-            password: req.user.password,
-            provider: req.user.provider,
-            profile: { firstName: req.user.firstName, lastName: req.user.lastName }
-        });
-        let userInfo = user.toJson();
+    User.findOne({ email: req.body.email }, function (err, user) {
+        if (err) { return res.status(400).json({ error: "bad data" }); }
+        if (!user) { return res.status(400).json({ error: 'Your login details could not be verified. Please try again.' }); }
+        user.comparePassword(req.body.password, function (err, isMatch) {
+            if (err) { return res.status(400).json({ error: "bad data" }); }
+            if (!isMatch) { return res.status(400).json({ error: 'Your login details could not be verified. Please try again.' }); }
 
-        res.status(200).json({
-            token: 'Bearer ' + generateToken(userInfo),
-            user: userInfo
+            if (!req.body.clientid) {
+                res.status(400).json({ error: "bad data" });
+            } else if (user.auths.clients.filter(function (item) { return item === req.body.clientid; }).length === 0) {
+                res.status(400).json({ error: "client not authorized" });
+            } else {
+                let userInfo = user.toJson();
+                res.status(200).json({
+                    token: 'Bearer ' + generateToken(userInfo),
+                    user: userInfo
+                });
+            }
         });
-    }
+    });
 }
 
 exports.validate = function (req, res, next) {
@@ -73,9 +73,10 @@ exports.register = function (req, res, next) {
                 return res.status(422).send({ error: 'That email address is already in use for this client.' });
             } else {
                 existingUser.auths.clients.push(clientid);
-                for (i=0;i<authAPIs.length;i++){
-                    if (existingUser.auths.apis.filter(function(item){
-                        return item===authAPIs[i]}).length==0){
+                for (i = 0; i < authAPIs.length; i++) {
+                    if (existingUser.auths.apis.filter(function (item) {
+                        return item === authAPIs[i]
+                    }).length == 0) {
                         existingUser.auths.apis.push(authAPIs[i]);
                     }
                 }
