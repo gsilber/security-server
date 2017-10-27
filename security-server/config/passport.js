@@ -1,8 +1,29 @@
 // Importing Passport, strategies, and config
 const passport = require('passport'),
     User = require('../model/user'),
-    passport_jwt = require('../security/passport/passport-jwt');
+    config = require('../config/config'),
+    JwtStrategy = require('passport-jwt').Strategy,
+    ExtractJwt = require('passport-jwt').ExtractJwt,
+    mongoose = require('mongoose');
 
-passport.use(passport_jwt.Login);
- 
+const jwtOptions = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: config.secret
+};
+
+// Setting up JWT login strategy
+const JWTLogin = new JwtStrategy(jwtOptions, function (payload, done) {
+    let id = new mongoose.Types.ObjectId(payload._id);
+    User.findById(id, function (err, user) {
+        if (err) { return done(err, false); }
+
+        if (user) {
+            done(null, user);
+        } else {
+            done(null, false);
+        }
+    });
+
+});
+passport.use(JWTLogin);
 exports.requireAuth = passport.authenticate('jwt', { session: false });       
