@@ -8,12 +8,22 @@ const googleOptions = {
      passReqToCallback : true
 };
 
-// Setting up JWT login strategy
+
+// Setting up Google Oauth2 login strategy
 exports.Login = new GoogleStrategy(googleOptions, 
     function(request, accessToken, refreshToken, profile, done) {
-        //lookup user, if found, redirect with token back to calling application if authorized, otherwise add authorization for this client
-        //if not found, create, then redirect with token back to calling applicaiton
-        //calling application should retrieve token and get the user profile information to confirm login
-        return done(null,  { error: 'Your login details could not be verified. Please try again.' });
+        User.findOne({email: profile.email},function(err,user){
+            if (err) { return done(err, false); }
+            
+                if (user) {
+                    done(null, {token: accessToken,user: user});
+                } else {
+                  user=new User({email:profile.email,password:'*', profile:{firstName:profile.name.givenName,lastName:profile.name.familyName},provider:profile.provider,role:['Unregistered']});
+                  user.save();
+                  done(null, {token: accessToken,user: user});
+                }
+                    
+        });
+        
     });
 

@@ -14,8 +14,8 @@ module.exports = function(app) {
     authRoutes.post('/login', passportService.requireLogin, AuthenticationController.login);
     authRoutes.get('/validate',passportService.requireAuth,AuthenticationController.validate);
     authRoutes.get('/google-login', passportService.requireGoogleLogin);
-    authRoutes.get('/google-callback', passportService.requireGoogleCallback);
-    authRoutes.get('/google-success',AuthenticationController.googleProcessLoginSuccess);
-    authRoutes.get('/google-failure',AuthenticationController.googleProcessLoginFailure);
+    authRoutes.get('/google-callback',passportService.requireGoogleCallback,AuthenticationController.googleCallback);
+    authRoutes.get('/google-validate',passportService.requireGoogleAuth,AuthenticationController.validate);
+    authRoutes.post('/test',AuthenticationController.test);
     app.use('/api', apiRoutes);
 };

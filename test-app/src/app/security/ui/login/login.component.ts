@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  googleLogin = () =>{
-    alert('boo');
+  googleLogin = () => {
+    window.location.href = 'http://localhost:3000/api/auth/google-login';
   }
 }

@@ -34,14 +34,16 @@ exports.login = function (req, res, next) {
         });
     }
 }
-
-exports.googleProcessLoginSuccess=function (req,res,next){
-    res.status(400).json({error:"bad data"});
-}
-exports.googleProcessLoginFailure=function (req,res,next){
-    res.status(400).json({error:"bad data"});
+exports.test=function(req,res,next){
+    const x=1;
 }
 
+exports.googleCallback=function (req,res,next){
+    const token=req.user.token;
+    const user=req.user.user.toJson();
+    let body=JSON.stringify({token: token, user: user});
+    return res.redirect(307,'http://localhost:4200/ext-land');
+}
 exports.validate = function (req, res, next) {
     return res.status(200).json({
         validated: true

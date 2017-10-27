@@ -9,12 +9,22 @@ passport.use(passport_local.Login);
 passport.use(passport_jwt.Login);
 passport.use(passport_google.Login);
 
+passport.serializeUser(function(user, done) {
+    done(null, user);
+  });
+  
+  passport.deserializeUser(function(user, done) {
+    done(null, user);
+  });
+  
 exports.requireAuth = passport.authenticate('jwt', { session: false });       
 exports.requireLogin = passport.authenticate('local', { session: false });  
 exports.requireGoogleLogin = passport.authenticate('google', { scope: 
       	[ 'https://www.googleapis.com/auth/plus.login',
-      	, 'https://www.googleapis.com/auth/plus.profile.emails.read' ] }
+      	, 'https://www.googleapis.com/auth/plus.profile.emails.read' ],session:false }
     );
+
+exports.requireGoogleAuth = passport.authenticate('google',{session: false });
 exports.requireGoogleCallback = passport.authenticate( 'google'
 //  ,{ 
 //              successRedirect: 'google-success',
