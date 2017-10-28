@@ -35,7 +35,7 @@ exports.login = function (req, res, next) {
     });
 }
 
-exports.validate = function (req, res, next) {
+exports.authorize = function (req, res, next) {
     return res.status(200).json({
         validated: true
     })

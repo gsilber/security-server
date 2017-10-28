@@ -1,6 +1,6 @@
 const AuthenticationController = require('./controllers/authentication'),  
       express = require('express'),
-      passportService = require('./config/passport');
+      passportService = require('./security/passport');
      
 module.exports = function(app) {  
     // Initializing route groups
@@ -12,6 +12,7 @@ module.exports = function(app) {
     authRoutes.post('/register', AuthenticationController.register);
     // /api/auth/login
     authRoutes.post('/login', AuthenticationController.login);
-    authRoutes.get('/validate',passportService.requireAuth,AuthenticationController.validate);
+    // /api/auth/authorize
+    authRoutes.get('/authorize',passportService.requireAuth,AuthenticationController.authorize);
     app.use('/api', apiRoutes);
 };

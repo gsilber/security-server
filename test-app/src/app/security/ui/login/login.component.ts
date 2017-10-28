@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   constructor(private _secSvc: SecurityService) { this.email = this.password = ''; }
 
   loginClick = () => {
-    this._secSvc.login(this.email, this.password).subscribe(
+    this._secSvc.login(this.email, this.password, 'test-app').subscribe(
       data => console.log('Data:' + data),
       err => console.log(err)
     );
@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   }
 
   googleLogin = () => {
-    //window.location.href = 'http://localhost:3000/api/auth/google-login';
+    // window.location.href = 'http://localhost:3000/api/auth/google-login';
+    this._secSvc.googleLogin();
   }
 }

@@ -1,4 +1,3 @@
-import { ExternalLandingComponent } from './views/external-landing/external-landing.component';
 import { AdminComponent } from './views/admin/admin.component';
 import { SecureComponent } from './views/secure/secure.component';
 import { HomeComponent } from './views/home/home.component';
@@ -9,8 +8,7 @@ const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'secure', component: SecureComponent},
-  {path: 'admin', component: AdminComponent},
-  {path: 'ext-land',  component: ExternalLandingComponent}
+  {path: 'admin', component: AdminComponent}
 ];
 
 @NgModule({

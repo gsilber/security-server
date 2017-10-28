@@ -7,15 +7,13 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './views/home/home.component';
 import { SecureComponent } from './views/secure/secure.component';
 import { AdminComponent } from './views/admin/admin.component';
-import { ExternalLandingComponent } from './views/external-landing/external-landing.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     SecureComponent,
-    AdminComponent,
-    ExternalLandingComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
