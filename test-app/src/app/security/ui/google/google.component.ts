@@ -40,7 +40,7 @@ export class GoogleComponent implements AfterViewInit {
     let that = this;
     that.auth2.attachClickHandler(element, {},
       function (googleUser: any) {
-        //that.authService.loginWithGooglePlus(googleUser.getAuthResponse().id_token)
+        // that.authService.loginWithGooglePlus(googleUser.getAuthResponse().id_token)
         //  .then((response: any) => {
         //    console.log(response);
             // that.authService.saveloggedInUser(response.user);
