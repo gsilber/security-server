@@ -17,24 +17,11 @@ const UserSchema = new Schema({
     firstName: { type: String },
     lastName: { type: String }
   },
-  provider: {
-    type: String,
-    required: true
-  },
-  auths: {
-    clients: {type: [String]},
-    apis: {type: [String]}
-  },
-  roles: {
-    type: [String],
-    default: ['Unregistered']
-  },
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date }
 },
   {
     timestamps: true,
-    collection: 'User'
   });
 
 // Pre-save of user to database, hash password if password is modified or new

@@ -20,17 +20,11 @@ exports.login = function (req, res, next) {
             if (err) { return res.status(400).json({ error: "bad data" }); }
             if (!isMatch) { return res.status(400).json({ error: 'Your login details could not be verified. Please try again.' }); }
 
-            if (!req.body.clientid) {
-                res.status(400).json({ error: "bad data" });
-            } else if (user.auths.clients.filter(function (item) { return item === req.body.clientid; }).length === 0) {
-                res.status(400).json({ error: "client not authorized" });
-            } else {
                 let userInfo = user.toJson();
                 res.status(200).json({
                     token: 'Bearer ' + generateToken(userInfo),
                     user: userInfo
                 });
-            }
         });
     });
 }
